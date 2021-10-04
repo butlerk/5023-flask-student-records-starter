@@ -12,7 +12,7 @@ app.config['SECRET_KEY'] = 'example-secret' #Used for demonstration, DO NOT use 
 db = SQLAlchemy(app)
 
 from app import routes
-from app.models import Student, Grade
+from app.models import Student, Grade, House
 
 @app.cli.command('init-db')
 def create_db():
@@ -29,6 +29,12 @@ def create_db():
     year6 = Grade(name='Year 6')
     db.session.add(year6)
 
+    red = House(colour='Red')
+    db.session.add(red)
+
+    green = House(colour='Green')
+    db.session.add(green)
+
     # TODO: Add code that creates new House records, once that model has been defined
 
     # Creates two example students, we do not need to add these to the sessions explicitly
@@ -36,23 +42,23 @@ def create_db():
     jack = Student (
         name = 'Jack',
         grade = year6,
-        # TODO: Add the house_id field once it has been defined in the Student model
+        house_id = 1,
         english_mark = 90,
         science_mark = 90,
-        # TODO: Add a value for the mathematics_mark field once it has been defined in the Student model
+        mathematics_mark = 90,
         does_homework = True,
-        # TODO: Add a value for the stays_on_task field once it has been defined in the Student model
+        stays_on_task = True
     )
 
     dom = Student (
         name = 'Dom',
         grade = year5,
-        # TODO: Add the house_id field once it has been defined in the model
+        house_id = 2,
         english_mark = 90,
         science_mark = 100,
-        # TODO: Add a value for the mathematics_mark field once it has been defined in the Student model
+        mathematics_mark = 90,
         does_homework = True,
-        # TODO: Add a value for the stays_on_task field once it has been defined in the Student model
+        stays_on_task = False
     )
 
     db.session.commit()
